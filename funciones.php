@@ -1,184 +1,5 @@
 <?php
     
-// function listarProductos(){	
-// 	try { 	
-// 		$db = Conexion::getConexion();
-// 		$stmt = $db->prepare("select * from producto");
-// 		$stmt->execute();
-// 		$filas = $stmt->fetchAll(PDO::FETCH_ASSOC);			
-// 		$arreglo = array();
-// 		foreach($filas as $fila) {			
-// 		    $elemento = array();
-// 			$elemento['idProducto'] = $fila['id_producto'];
-// 			$elemento['nombre'] = $fila['nombre'];
-// 			$elemento['descripcion'] = $fila['descripcion'];
-// 			$elemento['precio'] = $fila['precio'];
-// 			$elemento['stock'] = $fila['stock'];
-// 			$elemento['importancia'] = $fila['importancia'];
-// 			$elemento['imagen'] = $fila['imagen'];
-// 			$elemento['id_categoria'] = $fila['id_categoria'];
-// 			$arreglo[] = $elemento;
-// 		}
-// 		return $arreglo;
-		
-// 	} catch (PDOException $e) {
-// 		$db->rollback();
-// 		$mensaje  = '<b>Consulta inválida:</b> ' . $e->getMessage() . "<br/>";
-// 		die($mensaje);
-// 	}		
-// }
-
-// function buscarProductosPorNombre($nombre){	
-// 	try { 	
-// 		$db = Conexion::getConexion();
-// 		$stmt = $db->prepare("select * from producto where nombre like ?");
-// 		$stmt->bindValue(1, "%$nombre%", PDO::PARAM_STR);
-
-// 		$stmt->execute();
-// 		$filas = $stmt->fetchAll(PDO::FETCH_ASSOC);		
-// 		$arreglo = array();
-// 		foreach($filas as $fila) {			
-// 			$elemento = array();
-// 			$elemento['idProducto'] = $fila['id_producto'];
-// 			$elemento['nombre'] = $fila['nombre'];
-// 			$elemento['descripcion'] = $fila['descripcion'];
-// 			$elemento['precio'] = $fila['precio'];
-// 			$elemento['stock'] = $fila['stock'];
-// 			$elemento['importancia'] = $fila['importancia'];
-// 			$elemento['imagen'] = $fila['imagen'];
-// 			$elemento['id_categoria'] = $fila['id_categoria'];
-// 			$arreglo[] = $elemento;
-// 		}
-// 		return $arreglo;
-		
-// 	} catch (PDOException $e) {
-// 		$db->rollback();
-// 		$mensaje  = '<b>Consulta inválida:</b> ' . $e->getMessage() . "<br/>";
-// 		die($mensaje);
-// 	}		
-// }
-
-// function insertarProducto($nombre, $descripcion, $precio, $stock, $importancia, $imagen, $idCategoria){
-// 	try { 
-// 		$db = Conexion::getConexion();			
-// 		$stmt = $db->prepare("insert into producto (nombre, descripcion, precio, stock, importancia, imagen, id_categoria) values (?,?,?,?,?,?,?)");
-// 		$datos = array($nombre, $descripcion, $precio,
-// 					   $stock, $importancia, $imagen,
-// 					   $idCategoria);
-// 		$db->beginTransaction();
-// 		$stmt->execute($datos);
-// 		$db->commit();
-// 	} catch (PDOException $e) {
-// 		$db->rollback();
-// 		$mensaje  = '<b>Consulta inválida:</b> ' . $e->getMessage() . "<br/>";
-// 		die($mensaje);
-// 	}		
-// }
-
-// INSERT INTO `3504024_copypaste`.`clientes` (`id`, `cliente_nombre`, `correo`, `celular`, `fecha_creacion`, `id_tipousuario`) VALUES ('1', 'delivery', 'delivery@copypaste.pe', '999888777', '2020-09-08', NULL);
-
-
-
-// function actualizarProducto($nombre, $descripcion, $precio, $stock, $importancia, $imagen, $idCategoria, $idProducto){
-// 	try { 
-// 		$db = Conexion::getConexion();		
-// 		$stmt = $db->prepare("update producto set nombre=?, descripcion=?, precio=?, stock=?, importancia=?, imagen=?, id_categoria=? where id_producto=?");
-// 		$datos = array($nombre, $descripcion, $precio, $stock, $importancia, $imagen, $idCategoria, $idProducto);
-// 		$db->beginTransaction();						
-// 		$stmt->execute($datos);			
-// 		$db->commit();
-// 	} catch (PDOException $e) {
-// 		$db->rollback();
-// 		$mensaje  = '<b>Consulta inválida:</b> ' . $e->getMessage() . "<br/>";
-// 		die($mensaje);
-// 	}	
-// }
-
-// function eliminarProducto($id){
-// 	try { 
-// 		$db = Conexion::getConexion();  
-// 		$stmt = $db->prepare("delete from producto where id_producto=?");
-// 		$datos = array($id);
-// 		$db->beginTransaction();			
-// 		$stmt->execute($datos);			
-// 		$db->commit();
-// 	} catch (PDOException $e) {
-// 		$db->rollback();
-// 		$mensaje  = '<b>Consulta inválida:</b> ' . $e->getMessage() . "<br/>";
-// 		die($mensaje);
-// 	}	
-// }
-
-
-// function listarAvisos(){	
-// 	try { 	
-// 		$db = Conexion::getConexion();
-// 		$stmt = $db->prepare("select * from aviso");
-// 		$stmt->execute();
-// 		$filas = $stmt->fetchAll(PDO::FETCH_ASSOC);			
-// 		$arreglo = array();
-// 		foreach($filas as $fila) {			
-// 		    $elemento = array();
-// 			$elemento['id_aviso'] = $fila['id_aviso'];
-// 			$elemento['titulo'] = $fila['titulo'];
-// 			$elemento['fecha_inicio'] = $fila['fecha_inicio'];
-// 			$elemento['fecha_fin'] = $fila['fecha_fin'];
-// 			$elemento['estado'] = $fila['estado'];
-// 			$elemento['id_usuario'] = $fila['id_usuario'];
-			
-// 			$arreglo[] = $elemento;
-// 		}
-// 		return $arreglo;
-		
-// 	} catch (PDOException $e) {
-// 		$db->rollback();
-// 		$mensaje  = '<b>Consulta inválida:</b> ' . $e->getMessage() . "<br/>";
-// 		die($mensaje);
-// 	}		
-// }
-
-// function buscarAvisos($fecha){	
-// 	try { 	
-// 		$db = Conexion::getConexion();
-// 		$stmt = $db->prepare("select * from aviso where ? between fecha_inicio and fecha_fin");
-// 		$stmt->bindValue(1, $fecha, PDO::PARAM_STR);
-
-// 		$stmt->execute();
-// 		$filas = $stmt->fetchAll(PDO::FETCH_ASSOC);		
-// 		$arreglo = array();
-// 		foreach($filas as $fila) {			
-// 			$elemento = array();
-// 			$elemento['titulo'] = $fila['titulo'];
-// 			$elemento['fecha_inicio'] = $fila['fecha_inicio'];
-// 			$elemento['fecha_fin'] = $fila['fecha_fin'];
-// 			$elemento['estado'] = $fila['estado'];
-//                         $arreglo[] = $elemento;
-// 		}
-// 		return $arreglo;
-		
-// 	} catch (PDOException $e) {
-// 		$db->rollback();
-// 		$mensaje  = '<b>Consulta inválida:</b> ' . $e->getMessage() . "<br/>";
-// 		die($mensaje);
-// 	}		
-// }
-
-
-// function insertarAviso($titulo, $fecha_inicio, $fecha_fin){
-// 	try { 
-// 		$db = Conexion::getConexion();			
-// 		$stmt = $db->prepare("insert into aviso (titulo,fecha_inicio,fecha_fin,estado) values (?,?,?,'1')");
-// 		$datos = array($titulo, $fecha_inicio, $fecha_fin);
-// 		$db->beginTransaction();
-// 		$stmt->execute($datos);
-// 		$db->commit();
-// 	} catch (PDOException $e) {
-// 		$db->rollback();
-// 		$mensaje  = '<b>Consulta inválida:</b> ' . $e->getMessage() . "<br/>";
-// 		die($mensaje);
-// 	}		
-// }
-
 function login($correo,$clave){	
 	try { 	
 		$db = Conexion::getConexion();
@@ -417,7 +238,278 @@ function eliminarClientedireccion($id,$clienteid){
 	}	
 }
 
+function registrarPedido($cliente_id, $cliente_direccion_id, $precio_total){	
+	try { 	
+		$db = Conexion::getConexion();			
+		$stmt = $db->prepare("INSERT INTO pedido (cliente_id, cliente_direccion_id, precio_total, fecha, estado) VALUES ( ?, ?, ?, current_date, 1)");
+		$datos = array($cliente_id, $cliente_direccion_id, $precio_total);
+		$db->beginTransaction();
+		$stmt->execute($datos);
+		$db->commit();
+	} catch (PDOException $e) {
+		$db->rollback();
+		$mensaje  = '<b>Consulta inválida:</b> ' . $e->getMessage() . "<br/>";
+		die($mensaje);
+	}		
+}
 
+function registrarDetalle($pedido_id, $articulo_id, $cantidad, $precio){	
+	try { 	
+		$db = Conexion::getConexion();			
+		$stmt = $db->prepare("INSERT INTO pedido_detalles (pedido_id, articulo_id, cantidad, precio) VALUES ( ?, ?, ?, ?)");
+		$datos = array($pedido_id, $articulo_id, $cantidad, $precio);
+		$db->beginTransaction();
+		$stmt->execute($datos);
+		$db->commit();
+	} catch (PDOException $e) {
+		$db->rollback();
+		$mensaje  = '<b>Consulta inválida:</b> ' . $e->getMessage() . "<br/>";
+		die($mensaje);
+	}		
+}
+
+function actualizarPedidoentregado($id){	
+	try { 	
+		$db = Conexion::getConexion();			
+		$stmt = $db->prepare("UPDATE pedido set estado=2 where id=?");
+		$datos = array($id);
+		$db->beginTransaction();
+		$stmt->execute($datos);
+		$db->commit();
+	} catch (PDOException $e) {
+		$db->rollback();
+		$mensaje  = '<b>Consulta inválida:</b> ' . $e->getMessage() . "<br/>";
+		die($mensaje);
+	}		
+}
+
+function actualizarPedidoanulado($id, $motivo, $imagen_url){	
+	try { 	
+		$db = Conexion::getConexion();			
+		$stmt = $db->prepare("UPDATE pedido set estado=0 where id=?");
+		$datos = array($id);
+		$db->beginTransaction();
+		$stmt->execute($datos);
+		$db->commit();
+
+		$stmt = $db->prepare("INSERT INTO pedido_cancelados (pedido_id, motivo, imagen_url) VALUES (?, ?, ?)");
+		$datos = array($id, $motivo, $imagen_url);
+		$db->beginTransaction();
+		$stmt->execute($datos);
+		$db->commit();
+
+	} catch (PDOException $e) {
+		$db->rollback();
+		$mensaje  = '<b>Consulta inválida:</b> ' . $e->getMessage() . "<br/>";
+		die($mensaje);
+	}		
+}
+
+function obtenerPedidoCliente($idcliente){	
+	try { 	
+		$db = Conexion::getConexion();
+
+		$stmt = $db->prepare("SELECT p.id, p.precio_total, p.fecha, c.cliente_nombre, c.celular, p.cliente_id, p.estado  FROM pedido p LEFT JOIN clientes c ON c.id=p.cliente_id WHERE p.cliente_id=?");
+		$stmt->bindValue(1, $idcliente, PDO::PARAM_STR);
+		$stmt->execute();
+		$filas = $stmt->fetchAll(PDO::FETCH_ASSOC);		
+		$arreglo = array();
+		
+		foreach($filas as $fila) {			
+			$elemento = array();
+			$elemento['id'] = $fila['id'];
+			$elemento['precio_total'] = $fila['precio_total'];
+			$elemento['fecha'] = $fila['fecha'];
+			$elemento['cliente_nombre'] = $fila['cliente_nombre'];
+			$elemento['celular'] = $fila['celular'];
+			$elemento['cliente_id'] = $fila['cliente_id'];
+			$elemento['estado'] = $fila['estado'];
+
+			
+			$stmt2 = $db->prepare("SELECT d.articulo_id, d.cantidad, d.precio, a.articulo_nombre FROM pedido_detalles d LEFT JOIN articulos a ON a.id=d.articulo_id WHERE d.pedido_id = ? ");
+			$stmt2->bindValue(1, $fila['id'], PDO::PARAM_STR);
+			$stmt2->execute();
+			$filas2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);	
+			$arreglo2 = array();
+			
+			foreach($filas2 as $fila2) {			
+				$elemento2 = array();
+				$elemento2['articulo_id'] = $fila2['articulo_id'];
+				$elemento2['cantidad'] = $fila2['cantidad'];
+				$elemento2['precio'] = $fila2['precio'];
+				$elemento2['articulo_nombre'] = $fila2['articulo_nombre'];
+				$arreglo2[] = $elemento2;
+			}
+			$elemento['detalle'] = $arreglo2;
+
+			$arreglo[] = $elemento;
+		}
+		return $arreglo;
+		
+	} catch (PDOException $e) {
+		$db->rollback();
+		$mensaje  = '<b>Consulta inválida:</b> ' . $e->getMessage() . "<br/>";
+		die($mensaje);
+	}		
+}
+
+function obtenerPedidopendiente(){	
+	try { 	
+		$db = Conexion::getConexion();
+
+		$stmt = $db->prepare("SELECT p.id, p.precio_total, p.fecha, c.cliente_nombre, c.celular, p.cliente_id, p.estado  FROM pedido p LEFT JOIN clientes c ON c.id=p.cliente_id WHERE p.estado=1");
+		$stmt->execute();
+		$filas = $stmt->fetchAll(PDO::FETCH_ASSOC);		
+		$arreglo = array();
+		
+		foreach($filas as $fila) {			
+			$elemento = array();
+			$elemento['id'] = $fila['id'];
+			$elemento['precio_total'] = $fila['precio_total'];
+			$elemento['fecha'] = $fila['fecha'];
+			$elemento['cliente_nombre'] = $fila['cliente_nombre'];
+			$elemento['celular'] = $fila['celular'];
+			$elemento['cliente_id'] = $fila['cliente_id'];
+			$elemento['estado'] = $fila['estado'];
+
+			
+			$stmt2 = $db->prepare("SELECT d.articulo_id, d.cantidad, d.precio, a.articulo_nombre FROM pedido_detalles d LEFT JOIN articulos a ON a.id=d.articulo_id WHERE d.pedido_id = ? ");
+			$stmt2->bindValue(1, $fila['id'], PDO::PARAM_STR);
+			$stmt2->execute();
+			$filas2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);	
+			$arreglo2 = array();
+			
+			foreach($filas2 as $fila2) {			
+				$elemento2 = array();
+				$elemento2['articulo_id'] = $fila2['articulo_id'];
+				$elemento2['cantidad'] = $fila2['cantidad'];
+				$elemento2['precio'] = $fila2['precio'];
+				$elemento2['articulo_nombre'] = $fila2['articulo_nombre'];
+				$arreglo2[] = $elemento2;
+			}
+			$elemento['detalle'] = $arreglo2;
+
+			$arreglo[] = $elemento;
+		}
+		return $arreglo;
+		
+	} catch (PDOException $e) {
+		$db->rollback();
+		$mensaje  = '<b>Consulta inválida:</b> ' . $e->getMessage() . "<br/>";
+		die($mensaje);
+	}		
+}
+
+function obtenerPedidoid($id){	
+	try { 	
+		$db = Conexion::getConexion();
+
+		$stmt = $db->prepare("SELECT p.id, p.precio_total, p.fecha, c.cliente_nombre, c.celular, p.cliente_id, p.estado  FROM pedido p LEFT JOIN clientes c ON c.id=p.cliente_id WHERE p.id=?");
+		$stmt->bindValue(1, $id, PDO::PARAM_STR);
+		$stmt->execute();
+		$filas = $stmt->fetchAll(PDO::FETCH_ASSOC);		
+		$arreglo = array();
+		
+		foreach($filas as $fila) {			
+			$elemento = array();
+			$elemento['id'] = $fila['id'];
+			$elemento['precio_total'] = $fila['precio_total'];
+			$elemento['fecha'] = $fila['fecha'];
+			$elemento['cliente_nombre'] = $fila['cliente_nombre'];
+			$elemento['celular'] = $fila['celular'];
+			$elemento['cliente_id'] = $fila['cliente_id'];
+			$elemento['estado'] = $fila['estado'];
+
+			
+			$stmt2 = $db->prepare("SELECT d.articulo_id, d.cantidad, d.precio, a.articulo_nombre FROM pedido_detalles d LEFT JOIN articulos a ON a.id=d.articulo_id WHERE d.pedido_id = ? ");
+			$stmt2->bindValue(1, $fila['id'], PDO::PARAM_STR);
+			$stmt2->execute();
+			$filas2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);	
+			$arreglo2 = array();
+			
+			foreach($filas2 as $fila2) {			
+				$elemento2 = array();
+				$elemento2['articulo_id'] = $fila2['articulo_id'];
+				$elemento2['cantidad'] = $fila2['cantidad'];
+				$elemento2['precio'] = $fila2['precio'];
+				$elemento2['articulo_nombre'] = $fila2['articulo_nombre'];
+				$arreglo2[] = $elemento2;
+			}
+			$elemento['detalle'] = $arreglo2;
+
+			$arreglo[] = $elemento;
+		}
+		return $arreglo;
+		
+	} catch (PDOException $e) {
+		$db->rollback();
+		$mensaje  = '<b>Consulta inválida:</b> ' . $e->getMessage() . "<br/>";
+		die($mensaje);
+	}		
+}
+
+function obtenerPedidoidcorreo($id,$correo){	
+	try { 	
+		$db = Conexion::getConexion();
+
+		$stmt = $db->prepare("SELECT p.id, p.precio_total, p.fecha, c.cliente_nombre, c.celular, p.cliente_id, p.estado  FROM pedido p LEFT JOIN clientes c ON c.id=p.cliente_id WHERE p.id=? AND c.correo=?");
+		$stmt->bindValue(1, $id, PDO::PARAM_STR);
+		$stmt->bindValue(2, $correo, PDO::PARAM_STR);
+		$stmt->execute();
+		$filas = $stmt->fetchAll(PDO::FETCH_ASSOC);		
+		$arreglo = array();
+		
+		foreach($filas as $fila) {			
+			$elemento = array();
+			$elemento['id'] = $fila['id'];
+			$elemento['precio_total'] = $fila['precio_total'];
+			$elemento['fecha'] = $fila['fecha'];
+			$elemento['cliente_nombre'] = $fila['cliente_nombre'];
+			$elemento['celular'] = $fila['celular'];
+			$elemento['cliente_id'] = $fila['cliente_id'];
+			$elemento['estado'] = $fila['estado'];
+
+			$stmt2 = $db->prepare("SELECT d.articulo_id, d.cantidad, d.precio, a.articulo_nombre FROM pedido_detalles d LEFT JOIN articulos a ON a.id=d.articulo_id WHERE d.pedido_id = ? ");
+			$stmt2->bindValue(1, $fila['id'], PDO::PARAM_STR);
+			$stmt2->execute();
+			$filas2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);	
+			$arreglo2 = array();
+			
+			foreach($filas2 as $fila2) {			
+				$elemento2 = array();
+				$elemento2['articulo_id'] = $fila2['articulo_id'];
+				$elemento2['cantidad'] = $fila2['cantidad'];
+				$elemento2['precio'] = $fila2['precio'];
+				$elemento2['articulo_nombre'] = $fila2['articulo_nombre'];
+				$arreglo2[] = $elemento2;
+			}
+			$elemento['detalle'] = $arreglo2;
+
+			$stmt3 = $db->prepare("SELECT d.pedido_id, d.motivo, d.imagen_url FROM pedido_cancelados d WHERE d.pedido_id = ? ");
+			$stmt3->bindValue(1, $fila['id'], PDO::PARAM_STR);
+			$stmt3->execute();
+			$filas3 = $stmt3->fetchAll(PDO::FETCH_ASSOC);	
+			$arreglo3 = array();
+			
+			foreach($filas3 as $fila3) {			
+				$elemento3 = array();
+				$elemento3['pedido_id'] = $fila3['pedido_id'];
+				$elemento3['motivo'] = $fila3['motivo'];
+				$elemento3['imagen_url'] = $fila3['imagen_url'];
+				$arreglo3[] = $elemento3;
+			}
+			$elemento['cancelado'] = $arreglo3;
+
+			$arreglo[] = $elemento;
+		}
+		return $arreglo;
+		
+	} catch (PDOException $e) {
+		$db->rollback();
+		$mensaje  = '<b>Consulta inválida:</b> ' . $e->getMessage() . "<br/>";
+		die($mensaje);
+	}		
+}
 
 
 ?>

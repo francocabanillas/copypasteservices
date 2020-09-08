@@ -10,56 +10,6 @@ require_once 'Conexion.php';
 $app = new \Slim\Slim();
 $app->response->header('Content-Type', 'application/json');
 
-// // Servicio 1
-// $app->get('/productos', function(){  
-//     $lista = listarProductos();    
-//     echo json_encode($lista);    
-// });
-
-// // Servicio 2
-// $app->get('/productos/:nombre', function($nombre){   
-//     $lista = buscarProductosPorNombre($nombre);    
-//     echo json_encode($lista);    
-// });
-
-// // Servicio 3
-// $app->post('/productos', function () use ($app) {    
-//    $nombre = $app->request()->post('nombre');
-//    $precio = $app->request()->post('precio');   
-//    insertarProducto($nombre, '', $precio, 0, 0, '', 1);   
-//    echo json_encode(array('mensaje' => "Producto registrado satisfactoriamente"));    
-// });
-
-
-// // Servicio 4
-// $app->get('/avisos', function(){  
-//     $lista = listarAvisos();    
-//     echo json_encode($lista);    
-// });
-
-
-// // Servicio 5
-// $app->get('/avisos/:fecha', function($fecha){  
-//     $lista = buscarAvisos($fecha);    
-//     echo json_encode($lista);    
-// });
-
-
-// // Servicio 6
-// $app->post('/avisos', function() use ($app){     
-//    /*
-//    $request = $app->request();
-//    $body = $request->getBody();
-//    $data = json_decode($body);       
-//    insertarAviso($data->titulo, $data->fecha_inicio, $data->fecha_fin);
-//    */
-//    $titulo = $app->request()->post('titulo');
-//    $fecha_inicio = $app->request()->post('fecha_inicio');
-//    $fecha_fin = $app->request()->post('fecha_fin');
-//    insertarAviso($titulo, $fecha_inicio, $fecha_fin);
-//    echo json_encode(array('mensaje' => "Aviso registrado!"));    
-// });
-
 //Login
 $app->get('/login', function() use ($app){  
     $correo = $app->request()->post('correo');
@@ -69,7 +19,7 @@ $app->get('/login', function() use ($app){
 });
 
 //Registrar cliente
-$app->post('/registrarcliente', function () use ($app) {    
+$app->post('/cliente', function () use ($app) {    
    $cliente_nombre = $app->request()->post('cliente_nombre');
    $correo = $app->request()->post('correo');  
    $celular = $app->request()->post('celular');
@@ -79,50 +29,50 @@ $app->post('/registrarcliente', function () use ($app) {
 });
 
 //Actualizar cliente
-$app->put('/registrarcliente/:id', function ($id) use ($app) {    
+$app->put('/cliente/:id', function ($id) use ($app) {    
     $cliente_nombre = $app->request()->post('cliente_nombre'); 
     actualizarCliente($cliente_nombre, $id);
     echo json_encode(array('mensaje' => "Cliente actualizado satisfactoriamente"));    
  });
 
  //Resetear clave
-$app->get('/resetearclave/:correo', function($correo){  
+$app->get('/reset/:correo', function($correo){  
     $lista = resetearClave($correo);
     echo json_encode($lista);    
 });
 
  //obtener Menu
- $app->get('/obtenermenu', function(){  
+ $app->get('/menus', function(){  
     $lista = obtenerMenu();
     echo json_encode($lista);    
 });
 
  //obtener Bebida
- $app->get('/obtenerbebida', function(){  
+ $app->get('/bebida', function(){  
     $lista = obtenerBebida();
     echo json_encode($lista);    
 });
 
  //obtener Entrada
- $app->get('/obtenerentrada', function(){  
+ $app->get('/entrada', function(){  
     $lista = obtenerEntrada();
     echo json_encode($lista);    
 });
 
  //obtener Carta
- $app->get('/obtenercarta', function(){  
+ $app->get('/carta', function(){  
     $lista = obtenerCarta();
     echo json_encode($lista);    
 });
 
  //obtener Todo
- $app->get('/obtenertodo', function(){  
+ $app->get('/menus/todo', function(){  
     $lista = obtenerTodo();
     echo json_encode($lista);    
 });
 
 //Registrar cliente direccion
-$app->post('/registrarclientedireccion/:clienteid', function ($clienteid) use ($app) {
+$app->post('/clientedireccion/:clienteid', function ($clienteid) use ($app) {
     $nombre_direccion = $app->request()->post('nombre_direccion');  
     $latitud = $app->request()->post('latitud');
     $longitud = $app->request()->post('longitud');
@@ -131,13 +81,66 @@ $app->post('/registrarclientedireccion/:clienteid', function ($clienteid) use ($
  });
 
  //Eliminar cliente direccion
- $app->delete('/eliminarclientedireccion/:clienteid', function ($clienteid) use ($app) {
+ $app->delete('/clientedireccion/:clienteid', function ($clienteid) use ($app) {
     $id = $app->request()->post('id');
     eliminarClientedireccion($id,$clienteid); 
     echo json_encode(array('mensaje' => "Direccion eliminada satisfactoriamente"));    
  });
 
-
+ //Registrar pedido
+$app->post('/pedido/:clienteid', function ($clienteid) use ($app) {
+    $cliente_direccion_id = $app->request()->post('cliente_direccion_id');  
+    $precio_total = $app->request()->post('precio_total');
+    registrarPedido($clienteid, $cliente_direccion_id, $precio_total); 
+    echo json_encode(array('mensaje' => "Pedido registrada satisfactoriamente"));    
+ });
  
+ //Registrar detalle
+ $app->post('/detalle/:pedidoid', function ($pedidoid) use ($app) {
+    $articulo_id = $app->request()->post('articulo_id');  
+    $cantidad = $app->request()->post('cantidad');  
+    $precio = $app->request()->post('precio');
+    registrarDetalle($pedidoid, $articulo_id, $cantidad, $precio); 
+    echo json_encode(array('mensaje' => "Detalle de pedido registrado satisfactoriamente"));    
+ });
+
+//Actualizar pedido entregado
+$app->put('/pedido/entregado/:id', function ($id) { 
+    actualizarPedidoentregado($id);
+    echo json_encode(array('mensaje' => "Pedido actualizado satisfactoriamente"));    
+ });
+
+ //Actualizar pedido anulado
+$app->put('/pedido/anulado/:id', function ($id) use ($app){ 
+    $motivo = $app->request()->post('motivo');  
+    $imagen_url = $app->request()->post('imagen_url');
+    actualizarPedidoanulado($id, $motivo, $imagen_url);
+    echo json_encode(array('mensaje' => "Pedido actualizado satisfactoriamente"));    
+ });
+
+ //obtener pedidos de clientes
+ $app->get('/pedido/cliente/:id', function($id){  
+    $lista = obtenerPedidoCliente($id);
+    echo json_encode($lista);    
+});
+
+ //obtener pedidos pendientes
+ $app->get('/pedido/pendiente', function(){  
+    $lista = obtenerPedidopendiente();
+    echo json_encode($lista);    
+});
+
+ //obtener pedidos por id
+ $app->get('/pedido/:id', function($id){  
+    $lista = obtenerPedidoid($id);
+    echo json_encode($lista);    
+});
+
+ //obtener pedidos por correo e id
+ $app->get('/pedido/correo/:id', function($id) use ($app){
+    $correo = $app->request()->post('correo'); 
+    $lista = obtenerPedidoidcorreo($id,$correo);
+    echo json_encode($lista);    
+});
 
 $app->run();
