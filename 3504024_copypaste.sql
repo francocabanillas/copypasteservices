@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50724
 File Encoding         : 65001
 
-Date: 2020-09-07 22:26:39
+Date: 2020-09-07 23:01:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -88,13 +88,14 @@ CREATE TABLE `clientes` (
   `celular` int(20) NOT NULL,
   `fecha_creacion` date NOT NULL,
   `id_tipousuario` int(11) DEFAULT NULL,
+  `clave` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of clientes
 -- ----------------------------
-INSERT INTO `clientes` VALUES ('1', 'delivery', 'delivery@copypaste.pe', '999888777', '2020-09-08', null);
+INSERT INTO `clientes` VALUES ('1', 'delivery', 'delivery@copypaste.pe', '999888777', '2020-09-08', '2', '123456');
 
 -- ----------------------------
 -- Table structure for pedido

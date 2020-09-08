@@ -10,7 +10,7 @@
 		public static function getConexion() {
 			
 			if(self::$instance == NULL){           
-				$PDOinstance = new PDO("mysql:host=localhost;dbname=tienda;charset=utf8", "root", "");
+				$PDOinstance = new PDO("mysql:host=fdb28.awardspace.net;dbname=3504024_copypaste;charset=utf8", "3504024_copypaste", "Abc123456");
 				$PDOinstance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 				self::$instance = $PDOinstance;
 			}
