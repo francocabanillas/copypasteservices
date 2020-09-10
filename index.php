@@ -11,7 +11,7 @@ $app = new \Slim\Slim();
 $app->response->header('Content-Type', 'application/json');
 
 //Login
-$app->get('/login', function() use ($app){  
+$app->post('/login', function() use ($app){  
     $correo = $app->request()->post('correo');
     $clave = $app->request()->post('clave');
     $lista = login($correo,$clave);
