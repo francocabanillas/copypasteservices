@@ -18,6 +18,12 @@ $app->post('/login', function() use ($app){
     echo json_encode($lista);    
 });
 
+//Obtener cliente
+$app->get('/cliente/:id', function ($id) {
+   $lista = seleccionarCliente($id);
+   echo json_encode($lista);  
+});
+
 //Registrar cliente
 $app->post('/cliente', function () use ($app) {    
    $cliente_nombre = $app->request()->post('cliente_nombre');

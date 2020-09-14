@@ -27,6 +27,44 @@ function login($correo,$clave){
 	}		
 }
 
+function seleccionarCliente($id){	
+	try { 	
+		$db = Conexion::getConexion();
+		$stmt = $db->prepare("select c.id, c.cliente_nombre,c.correo,c.celular from clientes as c where c.id= ? ");
+		$stmt->bindValue(1, $id, PDO::PARAM_STR);
+
+		$stmt->execute();
+		$filas = $stmt->fetchAll(PDO::FETCH_ASSOC);		
+		$arreglo = array();
+		foreach($filas as $fila) {			
+			$elemento = array();
+			$elemento['id'] = $fila['id'];
+			$elemento['cliente_nombre'] = $fila['cliente_nombre'];
+			$elemento['correo'] = $fila['correo'];
+			$elemento['celular'] = $fila['celular'];
+
+			$stmt2 = $db->prepare("SELECT id, nombre_direccion, latitud, longitud, cliente_id FROM clientedirecciones WHERE cliente_id = ? LIMIT 1 ");
+			$stmt2->bindValue(1, $fila['id'], PDO::PARAM_STR);
+			$stmt2->execute();
+			$filas2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);	
+			foreach($filas2 as $fila2) {		
+				$elemento['direccion_id'] = $fila2['id'];
+				$elemento['nombre_direccion'] = $fila2['nombre_direccion'];
+				$elemento['latitud'] = $fila2['latitud'];
+				$elemento['longitud'] = $fila2['longitud'];
+			}
+
+			$arreglo[] = $elemento;
+		}
+		return $arreglo;
+		
+	} catch (PDOException $e) {
+		$db->rollback();
+		$mensaje  = '<b>Consulta inválida:</b> ' . $e->getMessage() . "<br/>";
+		die($mensaje);
+	}		
+}
+
 function registrarCliente($cliente_nombre, $correo, $celular, $clave){	
 	try { 	
 		$db = Conexion::getConexion();			
