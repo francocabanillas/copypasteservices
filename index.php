@@ -59,6 +59,14 @@ $app->get('/reset/:correo', function($correo){
     echo json_encode($lista);    
 });
 
+//obtener Bebidas
+$app->get('/bebidas', function(){  
+   $lista = obtenerBebidas();
+   echo json_encode($lista);    
+});
+
+
+
  //obtener Entrada
  $app->get('/entrada', function(){  
     $lista = obtenerEntrada();
@@ -97,8 +105,8 @@ $app->post('/clientedireccion/:clienteid', function ($clienteid) use ($app) {
 $app->post('/pedido/:clienteid', function ($clienteid) use ($app) {
     $cliente_direccion_id = $app->request()->post('cliente_direccion_id');  
     $precio_total = $app->request()->post('precio_total');
-    registrarPedido($clienteid, $cliente_direccion_id, $precio_total); 
-    echo json_encode(array('mensaje' => "Pedido registrada satisfactoriamente"));    
+    $lista =  registrarPedido($clienteid, $cliente_direccion_id, $precio_total); 
+    echo json_encode($lista);   
  });
  
  //Registrar detalle

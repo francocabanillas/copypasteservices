@@ -73,6 +73,7 @@ function registrarCliente($cliente_nombre, $correo, $celular, $clave){
 		$db->beginTransaction();
 		$stmt->execute($datos);
 		$db->commit();
+
 	} catch (PDOException $e) {
 		$db->rollback();
 		$mensaje  = '<b>Consulta inválida:</b> ' . $e->getMessage() . "<br/>";
@@ -149,7 +150,32 @@ function obtenerMenu(){
 function obtenerBebida(){	
 	try { 	
 		$db = Conexion::getConexion();
-		$stmt = $db->prepare("select a.id, a.articulo_nombre, a.categoria_nombre, a.precio, a.imagen_url from articulos a where a.clasificacion_id=2 limit 1");
+		$stmt = $db->prepare("select a.id, a.articulo_nombre, a.categoria_nombre, a.precio from articulos a where a.clasificacion_id=2 limit 1");
+		$stmt->execute();
+		$filas = $stmt->fetchAll(PDO::FETCH_ASSOC);		
+		$arreglo = array();
+		foreach($filas as $fila) {			
+			$elemento = array();
+			$elemento['id'] = $fila['id'];
+			$elemento['articulo_nombre'] = $fila['articulo_nombre'];
+			$elemento['categoria_nombre'] = $fila['categoria_nombre'];
+			$elemento['precio'] = $fila['precio'];
+			$elemento['imagen_url'] = $fila['imagen_url'];
+			$arreglo[] = $elemento;
+		}
+		return $arreglo;
+		
+	} catch (PDOException $e) {
+		$db->rollback();
+		$mensaje  = '<b>Consulta inválida:</b> ' . $e->getMessage() . "<br/>";
+		die($mensaje);
+	}		
+}
+
+function obtenerBebidas(){	
+	try { 	
+		$db = Conexion::getConexion();
+		$stmt = $db->prepare("select a.id, a.articulo_nombre, a.categoria_nombre, a.precio, a.imagen_url from articulos a where a.clasificacion_id=2 ");
 		$stmt->execute();
 		$filas = $stmt->fetchAll(PDO::FETCH_ASSOC);		
 		$arreglo = array();
@@ -174,7 +200,7 @@ function obtenerBebida(){
 function obtenerEntrada(){	
 	try { 	
 		$db = Conexion::getConexion();
-		$stmt = $db->prepare("select a.id, a.articulo_nombre, a.categoria_nombre, a.precio, a.imagen_url from articulos a where a.clasificacion_id=3 limit 1");
+		$stmt = $db->prepare("select a.id, a.articulo_nombre, a.categoria_nombre, a.precio from articulos a where a.clasificacion_id=3 limit 1");
 		$stmt->execute();
 		$filas = $stmt->fetchAll(PDO::FETCH_ASSOC);		
 		$arreglo = array();
@@ -264,8 +290,8 @@ function registrarClientedireccion($nombre_direccion, $latitud, $longitud, $clie
 function eliminarClientedireccion($id,$clienteid){
 	try { 
 		$db = Conexion::getConexion();  
-		$stmt = $db->prepare("delete from clientedirecciones where id=? and cliente_id=?");
-		$datos = array($id,$clienteid);
+		$stmt = $db->prepare("delete from clientedirecciones where cliente_id=?");
+		$datos = array($clienteid);
 		$db->beginTransaction();			
 		$stmt->execute($datos);			
 		$db->commit();
@@ -284,6 +310,20 @@ function registrarPedido($cliente_id, $cliente_direccion_id, $precio_total){
 		$db->beginTransaction();
 		$stmt->execute($datos);
 		$db->commit();
+
+		$stmt2 = $db->prepare("select id from pedido where cliente_id = ? order by id desc limit 1 ");
+		$stmt2->bindValue(1, $cliente_id, PDO::PARAM_STR);
+		$stmt2->execute();
+		$filas = $stmt2->fetchAll(PDO::FETCH_ASSOC);		
+		$arreglo = array();
+		foreach($filas as $fila) {			
+			$elemento = array();
+			$elemento['id'] = $fila['id'];
+			$arreglo[] = $elemento;
+		}
+		return $arreglo;
+
+
 	} catch (PDOException $e) {
 		$db->rollback();
 		$mensaje  = '<b>Consulta inválida:</b> ' . $e->getMessage() . "<br/>";
